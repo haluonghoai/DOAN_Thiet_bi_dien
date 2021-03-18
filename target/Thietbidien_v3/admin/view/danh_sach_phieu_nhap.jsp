@@ -57,7 +57,7 @@
                                 <td>50000</td>
                                 <td>Đã nhập</td>
                                 <td>
-                                    <a class="btn btn-info" href="/Doan_Thietbidien_war/chi-tiet-phieu-nhap.tiles">Xem chi tiết</a>
+                                    <a class="btn btn-info" href="chi-tiet-phieu-nhap.tiles">Xem chi tiết</a>
                                 </td>
                                 <td>
                                     <select class="form-control select-dsdh-htthanh-toan">
@@ -74,7 +74,7 @@
                                 <td>50000</td>
                                 <td>Chưa nhập</td>
                                 <td>
-                                    <a class="btn btn-info" href="/Doan_Thietbidien_war/chi-tiet-don-hang.tiles">Xem chi tiết</a>
+                                    <a class="btn btn-info" href="chi-tiet-don-hang.tiles">Xem chi tiết</a>
                                 </td>
                                 <td>
                                     <select class="form-control select-dsdh-htthanh-toan">

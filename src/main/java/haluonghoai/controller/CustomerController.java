@@ -48,6 +48,19 @@ public class CustomerController extends HttpServlet {
                 rs = jsonResult.jsonFail("so-ban-ghi-error");
             }
             response.getWriter().write(rs);
+        }else if(partInfo.indexOf("/seach-customer")==0){
+            try {
+                String name = request.getParameter("name");
+                String phoneNumber = request.getParameter("phoneNumber");
+                String email = request.getParameter("email");
+                String adress = request.getParameter("adress");
+                List<Customer> list = customerDao.search(name,phoneNumber,email,adress);
+                rs = jsonResult.jsonSuccess(list);
+            }catch (Exception ex){
+                ex.printStackTrace();
+                rs = jsonResult.jsonFail("seach-customer-fail");
+            }
+            response.getWriter().write(rs);
         }
         else {
             response.sendError(404, "URL is not supported");

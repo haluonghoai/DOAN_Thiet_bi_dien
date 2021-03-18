@@ -38,7 +38,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">STT</th>
-                                <th scope="col">Tên nhà cung cấp</th>
+                                <th scope="col">Họ và tên</th>
                                 <th scope="col">Số điện thoại</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Địa chỉ</th>

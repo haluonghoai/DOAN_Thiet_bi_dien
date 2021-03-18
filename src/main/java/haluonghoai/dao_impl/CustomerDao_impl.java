@@ -69,4 +69,23 @@ public class CustomerDao_impl implements CustomerDao {
         banghi = resultSet.getInt(1);
         return banghi;
     }
+
+    @Override
+    public List<Customer> search(String name, String phoneNumber, String email, String adress) throws SQLException, ClassNotFoundException {
+        List<Customer> list = new ArrayList<>();
+        String sql = "select * from tblKhachhang where sHoten like ? or sEmail = ? or sDiachi = ?, sSodienthoai = ?";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        preparedStatement.setString(1,name);
+        preparedStatement.setString(2,phoneNumber);
+        preparedStatement.setString(3,email);
+        preparedStatement.setString(4,adress);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.first()){
+            do{
+                Customer customer = getObject(resultSet);
+                if(customer != null) list.add(customer);
+            }while(resultSet.next());
+        }
+        return list;
+    }
 }

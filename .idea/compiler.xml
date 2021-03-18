@@ -6,8 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Thietbidien_v3" />
         <module name="DOAN_Thiet_bi_dien" />
+        <module name="Thietbidien_v3" />
       </profile>
     </annotationProcessing>
   </component>

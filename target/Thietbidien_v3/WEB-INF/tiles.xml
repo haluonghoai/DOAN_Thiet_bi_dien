@@ -47,7 +47,7 @@
         <put-attribute name="title" value="Thống kê hàng hóa"/>
         <put-attribute name="body" value="/admin/view/thong_ke_hang_hoa.jsp"/>
     </definition>
-    <definition name="thong-ke-chi-phi-nhap" template="/admin/admin/view/layout.jsp">
+    <definition name="thong-ke-chi-phi-nhap" template="/admin/view/layout.jsp">
         <put-attribute name="title" value="Thống kê chi phí nhập hàng"/>
         <put-attribute name="body" value="/admin/view/thong_ke_chi_phi_nhap.jsp"/>
     </definition>
