@@ -45,4 +45,9 @@ public class ProductService_impl implements ProductService {
     public List<Product> findByCategory(int idCategory) throws SQLException, ClassNotFoundException {
         return productDao.findByCategory(idCategory);
     }
+
+    @Override
+    public List<Product> searchByName(String name) throws SQLException, ClassNotFoundException {
+        return productDao.searchProductByName(name);
+    }
 }

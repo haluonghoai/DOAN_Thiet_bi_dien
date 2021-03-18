@@ -86,7 +86,7 @@
                                 <td>Chuyển khoản</td>
                                 <td class="text-center"><span class="badge badge-success">Đã thanh toán</span></td>
                                 <td>
-                                    <a class="btn btn-info" href="/Doan_Thietbidien_war/chi-tiet-don-hang.tiles">Xem chi tiết</a>
+                                    <a class="btn btn-info" href="chi-tiet-don-hang.tiles">Xem chi tiết</a>
                                 </td>
                                 <td>
                                     <select class="form-control select-thanh-toan">

@@ -8,22 +8,22 @@ public class Order {
     private String note;
     private int idUser;
     private int idCustomer;
-    private int idPayments;
     private int idOrderstatus;
-    private Boolean statusPaments;
+    private boolean statusPaments; // 0 là chưa thanh toán, 1 là đã thanh toán
+    private boolean payments; // 0 là thanh toán sau khi nhận hàng, 1 là chuyển khoản
 
     public Order() {
     }
 
-    public Order(int id, Date timecreate, String note, int idUser, int idCustomer, int idPayments, int idOrderstatus, Boolean statusPaments) {
+    public Order(int id, Date timecreate, String note, int idUser, int idCustomer, int idOrderstatus, boolean statusPaments, boolean payments) {
         this.id = id;
         this.timecreate = timecreate;
         this.note = note;
         this.idUser = idUser;
         this.idCustomer = idCustomer;
-        this.idPayments = idPayments;
         this.idOrderstatus = idOrderstatus;
         this.statusPaments = statusPaments;
+        this.payments = payments;
     }
 
     public int getId() {
@@ -66,14 +66,6 @@ public class Order {
         this.idCustomer = idCustomer;
     }
 
-    public int getIdPayments() {
-        return idPayments;
-    }
-
-    public void setIdPayments(int idPayments) {
-        this.idPayments = idPayments;
-    }
-
     public int getIdOrderstatus() {
         return idOrderstatus;
     }
@@ -82,12 +74,20 @@ public class Order {
         this.idOrderstatus = idOrderstatus;
     }
 
-    public Boolean getStatusPaments() {
+    public boolean isStatusPaments() {
         return statusPaments;
     }
 
-    public void setStatusPaments(Boolean statusPaments) {
+    public void setStatusPaments(boolean statusPaments) {
         this.statusPaments = statusPaments;
+    }
+
+    public boolean isPayments() {
+        return payments;
+    }
+
+    public void setPayments(boolean payments) {
+        this.payments = payments;
     }
 
     @Override
@@ -98,9 +98,9 @@ public class Order {
                 ", note='" + note + '\'' +
                 ", idUser=" + idUser +
                 ", idCustomer=" + idCustomer +
-                ", idPayments=" + idPayments +
                 ", idOrderstatus=" + idOrderstatus +
                 ", statusPaments=" + statusPaments +
+                ", payments=" + payments +
                 '}';
     }
 }

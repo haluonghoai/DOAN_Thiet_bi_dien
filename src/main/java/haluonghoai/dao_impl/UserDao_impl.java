@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao_impl implements UserDao {
+
     MyConnection myConnection = new MyConnection();
+
     @Override
     public User getObject(ResultSet resultSet) throws SQLException {
         User user = null;
-        user = new User(resultSet.getInt("iManguoidung"),resultSet.getString("sHoten"),resultSet.getString("sEmail"),resultSet.getString("sDiachi"),resultSet.getString("sSodienthoai"),resultSet.getDate("dNgaysinh"),resultSet.getString("sMatkhau"),resultSet.getInt("iMaquyen"));
+        user = new User(resultSet.getInt("iManguoidung"),resultSet.getString("sHoten"),resultSet.getString("sEmail"),resultSet.getString("sDiachi"),resultSet.getString("sSodienthoai"),resultSet.getString("dNgaysinh"),resultSet.getString("sMatkhau"),resultSet.getInt("iMaquyen"));
         return user;
     }
 
@@ -61,7 +63,7 @@ public class UserDao_impl implements UserDao {
         preparedStatement.setString(2,user.getEmail());
         preparedStatement.setString(3,user.getAdress());
         preparedStatement.setString(4,user.getPhonenumber());
-        preparedStatement.setDate(5, (Date) user.getDateOfBirth());
+        preparedStatement.setString(5,user.getDateOfBirth());
         preparedStatement.setString(6,user.getPass());
         preparedStatement.setInt(7,user.getIdQuyen());
         int rs = preparedStatement.executeUpdate();
@@ -77,15 +79,16 @@ public class UserDao_impl implements UserDao {
     @Override
     public boolean update(User user) throws SQLException {
         boolean result = false;
-        String sql = "update tblNguoiDung set sHoten = ?, sEmail = ?, sDiachi = ?, sSodienthoai = ?, dNgaysinh = ?, sMatkhau = ?, iMaquyen = ? where iManguoidung = ?";
+        String sql = "update tblNguoiDung set sHoten = ?,sEmail=?,sDiachi=?,sSodienthoai=?,dNgaysinh=?,sMatkhau=?,iMaquyen=? where iManguoidung = ?";
         PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
         preparedStatement.setString(1, user.getName());
         preparedStatement.setString(2,user.getEmail());
         preparedStatement.setString(3,user.getAdress());
         preparedStatement.setString(4,user.getPhonenumber());
-        preparedStatement.setDate(5, (Date) user.getDateOfBirth());
+        preparedStatement.setString(5,user.getDateOfBirth());
         preparedStatement.setString(6,user.getPass());
         preparedStatement.setInt(7,user.getIdQuyen());
+        preparedStatement.setInt(8,user.getId());
         int rs = preparedStatement.executeUpdate();
         if(rs > 0) result = true;
         return result;

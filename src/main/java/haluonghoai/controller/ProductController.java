@@ -84,8 +84,8 @@ public class ProductController extends HttpServlet {
             response.getWriter().write(rs);
         }else if(pathInfo.indexOf("/search-by-name")==0){
             try{
-                String name = request.getParameter("name");
-                List<Product> list = productDao.searchProductByName(name);
+                String name = request.getParameter("name").toString();
+                List<Product> list = productService.searchByName(name);
                 rs = jsonResult.jsonSuccess(list);
             }catch (Exception ex){
                 ex.printStackTrace();
@@ -120,7 +120,7 @@ public class ProductController extends HttpServlet {
             rs = jsonResult.jsonSuccess(productService.delete(id));
         } catch (Exception ex) {
             ex.printStackTrace();
-            rs = jsonResult.jsonFail("delete category fail");
+            rs = jsonResult.jsonFail("delete supplier fail");
         }
         resp.getWriter().write(rs);
     }

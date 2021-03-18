@@ -8,14 +8,14 @@ public class User {
     private String email;
     private String adress;
     private String phonenumber;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String pass;
     private int idQuyen;
 
     public User() {
     }
 
-    public User(int id, String name, String email, String adress, String phonenumber, Date dateOfBirth, String pass, int idQuyen) {
+    public User(int id, String name, String email, String adress, String phonenumber, String dateOfBirth, String pass, int idQuyen) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -66,11 +66,11 @@ public class User {
         this.phonenumber = phonenumber;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

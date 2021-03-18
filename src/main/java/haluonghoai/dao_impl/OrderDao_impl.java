@@ -3,7 +3,6 @@ package haluonghoai.dao_impl;
 import haluonghoai.dao.OrderDao;
 import haluonghoai.modal.MyConnection;
 import haluonghoai.modal.Order;
-import haluonghoai.modal.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ public class OrderDao_impl implements OrderDao {
     @Override
     public Order getObject(ResultSet resultSet) throws SQLException {
         Order order = null;
-        order = new Order(resultSet.getInt("iMadonhang"),resultSet.getDate("dThoigiandat"),resultSet.getString("sGhichu"),resultSet.getInt("iManguoidung"),resultSet.getInt("iMakhachhang"),resultSet.getInt("iMahinhthucthanhtoan"),resultSet.getInt("iMatrangthai"),resultSet.getBoolean("bTrangthaithanhtoan"));
+        order = new Order(resultSet.getInt("iMadonhang"),resultSet.getDate("dThoigiandat"),resultSet.getString("sGhichu"),resultSet.getInt("iManguoidung"),resultSet.getInt("iMakhachhang"),resultSet.getInt("iMatrangthai"),resultSet.getBoolean("bTrangthaithanhtoan"),resultSet.getBoolean("bHinhthucthanhtoan"));
         return order;
     }
 
@@ -28,10 +27,124 @@ public class OrderDao_impl implements OrderDao {
     @Override
     public List<Order> findAll() throws SQLException, ClassNotFoundException {
         List<Order> list = new ArrayList<>();
-        String sql = "select tblDonHang.iMadonhang as N'Mã đơn hàng', tblDonHang.dThoigiandat as N'Thời gian đặt', tblTrangThaiDonHang.sTentrangthai as N'Trạng thái đơn hàng', tblHinhThucThanhToan.sTenhinhthucthanhtoan as N'Hình thức thanh toán',\n" +
-                "tblDonHang.bTrangthaithanhtoan as N'Trạng thái thanh toán' from ((tblDonHang inner join tblTrangThaiDonHang on tblDonHang.iMatrangthai = tblTrangThaiDonHang.iMatrangthai)\n" +
-                "inner join tblHinhThucThanhToan on tblDonHang.iMahinhthucthanhtoan = tblHinhThucThanhToan.iMahinhthucthanhtoan)";
+        String sql = "select * from tblDonHang";
         PreparedStatement preparedStatement = myConnection.prepare(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.first()){
+            do{
+                Order order = getObject(resultSet);
+                if(order != null) list.add(order);
+            }while(resultSet.next());
+        }
+        return list;
+    }
+
+    @Override
+    public boolean updateStatusPayment(boolean tttt, int id) throws SQLException, ClassNotFoundException {
+        boolean result = false;
+        String sql = "update tblDonHang set bTrangthaithanhtoan = ? where iMadonhang = ?";
+        PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
+        preparedStatement.setBoolean(1,tttt);
+        preparedStatement.setInt(2,id);
+        int rs = preparedStatement.executeUpdate();
+        if(rs > 0) result = true;
+        return result;
+    }
+
+    @Override
+    public boolean updateStatusOrder(int matrangthai, int id) throws SQLException, ClassNotFoundException {
+        boolean result = false;
+        String sql = "update tblDonHang set iMatrangthai = ? where iMadonhang = ?";
+        PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
+        preparedStatement.setInt(1,matrangthai);
+        preparedStatement.setInt(2,id);
+        int rs = preparedStatement.executeUpdate();
+        if(rs > 0) result = true;
+        return result;
+    }
+
+    @Override
+    public Order seeDetails(int id) throws SQLException, ClassNotFoundException {
+        Order order = new Order();
+        String sql = "select tblDonHang.iMadonhang as N'Mã đơn hàng', tblKhachHang.iMakhachhang, tblKhachHang.sHoten, tblKhachHang.sSodienthoai, tblKhachHang.sEmail, tblKhachHang.sDiachi from tblDonHang\n" +
+                "inner join tblKhachHang on tblDonHang.iMakhachhang = tblKhachHang.iMakhachhang where tblDonHang.iMadonhang = ?";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        preparedStatement.setInt(1,id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.first()) {
+            order = getObject(resultSet);
+        }
+        return order;
+    }
+
+    @Override
+    public Order seeDetailsProduct(int id) throws SQLException, ClassNotFoundException {
+        Order order = new Order();
+        String sql = "select tblSanPham.sMasanpham, tblSanPham.sTensanpham, tblSanPham.iSoluong, tblSanPham.fGiaban, (tblSanPham.iSoluong * tblSanPham.fGiaban) as N'Thanh tien'\n" +
+                "from (tblChiTietDonHang inner join tblSanPham on tblChiTietDonHang.iId_sanpham = tblSanPham.iId_sanpham) inner join tblDonHang on tblChiTietDonHang.iMadonhang = tblDonHang.iMadonhang\n" +
+                "where tblDonHang.iMadonhang = ?";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        preparedStatement.setInt(1,id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.first()){
+            order = getObject(resultSet);
+        }
+        return order;
+    }
+
+    @Override
+    public float totalMoney() throws SQLException, ClassNotFoundException {
+        float total;
+        String sql = "select sum(tblSanPham.iSoluong * tblSanPham.fGiaban) from tblChiTietDonHang inner join tblSanPham on tblChiTietDonHang.iId_sanpham = tblSanPham.iId_sanpham";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        total = resultSet.getFloat(1);
+        return total;
+    }
+
+    @Override
+    public boolean updateProductInOrder(Order order) throws SQLException, ClassNotFoundException {
+        return false;
+    }
+
+    @Override
+    public List<Order> selectOrderByPayments(boolean payments) throws SQLException, ClassNotFoundException {
+        List<Order> list = new ArrayList<>();
+        String sql = "select * from tblDonHang where tblDonHang.bHinhthucthanhtoan = ?";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        preparedStatement.setBoolean(1,payments);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.first()){
+            do{
+                Order order = getObject(resultSet);
+                if(order != null) list.add(order);
+            }while(resultSet.next());
+        }
+        return list;
+    }
+
+    @Override
+    public List<Order> selectOrderByStatusOrder(int matrangthai) throws SQLException, ClassNotFoundException {
+        List<Order> list = new ArrayList<>();
+        String sql = "select * from tblDonHang where tblDonHang.iMatrangthai = ?";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        preparedStatement.setInt(1,matrangthai);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.first()){
+            do{
+                Order order = getObject(resultSet);
+                if(order != null) list.add(order);
+            }while(resultSet.next());
+        }
+        return list;
+    }
+
+    @Override
+    public List<Order> selectOrderByStatusPayments(boolean trangthaitt) throws SQLException, ClassNotFoundException {
+        List<Order> list = new ArrayList<>();
+        String sql = "select * from tblDonHang where tblDonHang.bTrangthaithanhtoan = ?";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        preparedStatement.setBoolean(1,trangthaitt);
         ResultSet resultSet = preparedStatement.executeQuery();
         if(resultSet.first()){
             do{
@@ -58,23 +171,8 @@ public class OrderDao_impl implements OrderDao {
     @Override
     public Order insert(Order order) throws Exception {
         Order newOrder = null;
-        String sql = "insert tblDonHang values (?,?,?,?,?,?,?)";
-        PreparedStatement preparedStatement = myConnection.prepareUpdate(sql);
-        preparedStatement.setDate(1, (Date) order.getTimecreate());
-        preparedStatement.setString(2,order.getNote());
-        preparedStatement.setString(3,order.get);
-        preparedStatement.setString(4,user.getPhonenumber());
-        preparedStatement.setDate(5, (Date) user.getDateOfBirth());
-        preparedStatement.setString(6,user.getPass());
-        preparedStatement.setInt(7,user.getIdQuyen());
-        int rs = preparedStatement.executeUpdate();
-        if(rs > 0) {
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if(resultSet.first()) {
-                newUser = findById((int) resultSet.getLong(1));
-            }
-        }
-        return newUser;
+
+        return null;
     }
 
     @Override
@@ -89,6 +187,12 @@ public class OrderDao_impl implements OrderDao {
 
     @Override
     public int count() throws SQLException, ClassNotFoundException {
-        return 0;
+        int banghi = 0;
+        String sql = "select count(*) from tblDonHang";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.last();
+        banghi = resultSet.getInt(1);
+        return banghi;
     }
 }

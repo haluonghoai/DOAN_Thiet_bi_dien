@@ -6,7 +6,7 @@ public class Product {
     private String name;
     private float price;
     private String image;
-    private boolean status;
+    private boolean status; // false là còn hàng, true là hết hàng
     private String description;
     private int amount;
     private String specification;
