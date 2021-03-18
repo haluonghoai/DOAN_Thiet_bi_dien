@@ -50,7 +50,7 @@ public class ProductController extends HttpServlet {
                 rs = jsonResult.jsonFail("find-all-fail");
             }
             response.getWriter().write(rs);
-        }else if(pathInfo.indexOf("/so-ban-ghi")==0){
+        }else if(pathInfo.indexOf("/so-ban-ghi")==0){//Hiển thị số bản ghi
             try{
                 int sobanghi = productService.count();
                 rs = jsonResult.jsonSuccess(sobanghi);
@@ -59,7 +59,7 @@ public class ProductController extends HttpServlet {
                 rs = jsonResult.jsonFail("so-ban-ghi fail");
             }
             response.getWriter().write(rs);
-        }else if(pathInfo.indexOf("/search-san-pham")==0){
+        }else if(pathInfo.indexOf("/search-san-pham")==0){//Tìm kiếm sản phẩm trong trang admin
             try{
                 String id = request.getParameter("id");
                 String name = request.getParameter("name");
@@ -72,7 +72,7 @@ public class ProductController extends HttpServlet {
                 rs = jsonResult.jsonFail("search-san-pham-fail");
             }
             response.getWriter().write(rs);
-        }else if(pathInfo.indexOf("/find-by-category")==0) {
+        }else if(pathInfo.indexOf("/find-by-category")==0) {//Hiển thị danh sách sản phẩm theo danh mục sản phẩm
             try {
                 int idCategory = Integer.parseInt(request.getParameter("idCategory"));
                 List<Product> list = productService.findByCategory(idCategory);
@@ -82,7 +82,7 @@ public class ProductController extends HttpServlet {
                 rs = jsonResult.jsonFail("find-by-category-fail");
             }
             response.getWriter().write(rs);
-        }else if(pathInfo.indexOf("/search-by-name")==0){
+        }else if(pathInfo.indexOf("/search-by-name")==0){//Tìm kiếm sản phẩm theo tên phần ô tìm kiếm
             try{
                 String name = request.getParameter("name").toString();
                 List<Product> list = productService.searchByName(name);

@@ -48,7 +48,7 @@ public class OrderController extends HttpServlet {
                 rs = jsonResult.jsonFail("so-ban-ghi-error");
             }
             response.getWriter().write(rs);
-        }else if(partInfo.indexOf("/find-by-hinh-thuc-thanh-toan")==0){
+        }else if(partInfo.indexOf("/find-by-hinh-thuc-thanh-toan")==0){//Hiển thị danh sách đơn hàng theo hình thức thanh toán trong trang admin, phần select hình thức thanh toán
             try{
                 boolean payments = Boolean.parseBoolean(request.getParameter("payments"));
                 List<Order> orderList = orderDao.selectOrderByPayments(payments);
@@ -58,7 +58,7 @@ public class OrderController extends HttpServlet {
                 rs = jsonResult.jsonFail("find-by-hinh-thuc-thanh-toan-error");
             }
             response.getWriter().write(rs);
-        }else if(partInfo.indexOf("/find-by-trang-thai-thanh-toan")==0){
+        }else if(partInfo.indexOf("/find-by-trang-thai-thanh-toan")==0){//Hiển thị sanh sách đơn hàng theo trạng thái thanh toán
             try{
                 boolean statusPayments = Boolean.parseBoolean(request.getParameter("statusPayments"));
                 List<Order> orderList = orderDao.selectOrderByStatusPayments(statusPayments);
@@ -68,7 +68,7 @@ public class OrderController extends HttpServlet {
                 rs = jsonResult.jsonFail("find-by-trang-thai-thanh-toan-error");
             }
             response.getWriter().write(rs);
-        }else if(partInfo.indexOf("/find-by-trang-thai-don-hang")==0){
+        }else if(partInfo.indexOf("/find-by-trang-thai-don-hang")==0){//Hiển thị danh sách đơn hàng theo trạng thái đơn hàng
             try{
                 int idStatusOrder = Integer.parseInt(request.getParameter("id"));
                 List<Order> orderList = orderDao.selectOrderByStatusOrder(idStatusOrder);
@@ -78,40 +78,11 @@ public class OrderController extends HttpServlet {
                 rs = jsonResult.jsonFail("find-by-trang-thai-don-hang-error");
             }
             response.getWriter().write(rs);
-        }else if(partInfo.indexOf("/find-by-id")==0){
+        }else if(partInfo.indexOf("/find-by-id")==0){//Tìm kiếm đơn hàng
             try{
                 int id = Integer.parseInt(request.getParameter("id"));
                 Order order = orderDao.findById(id);
                 rs = jsonResult.jsonSuccess(order);
-            }catch (Exception ex){
-                ex.printStackTrace();
-                rs = jsonResult.jsonFail("find-by-find-by-id-error");
-            }
-            response.getWriter().write(rs);
-        }else if(partInfo.indexOf("/find-by-xemchitiet-khach-hang")==0){
-            try{
-                int id = Integer.parseInt(request.getParameter("id"));
-                Order order = orderDao.seeDetails(id);
-                rs = jsonResult.jsonSuccess(order);
-            }catch (Exception ex){
-                ex.printStackTrace();
-                rs = jsonResult.jsonFail("find-by-find-by-id-error");
-            }
-            response.getWriter().write(rs);
-        }else if(partInfo.indexOf("/find-by-xemchitiet-san-pham")==0){
-            try{
-                int id = Integer.parseInt(request.getParameter("id"));
-                Order order = orderDao.seeDetailsProduct(id);
-                rs = jsonResult.jsonSuccess(order);
-            }catch (Exception ex){
-                ex.printStackTrace();
-                rs = jsonResult.jsonFail("find-by-find-by-id-error");
-            }
-            response.getWriter().write(rs);
-        }else if(partInfo.indexOf("/xemchitiet-tong-tien")==0){
-            try{
-                float totalMoney = orderDao.totalMoney();
-                rs = jsonResult.jsonSuccess(totalMoney);
             }catch (Exception ex){
                 ex.printStackTrace();
                 rs = jsonResult.jsonFail("find-by-find-by-id-error");
@@ -127,7 +98,7 @@ public class OrderController extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String rs = "";
         String partInfo = req.getPathInfo();
-        if(partInfo.indexOf("/update-by-status-payments")==0){
+        if(partInfo.indexOf("/update-by-status-payments")==0){//Cập nhật trạng thái thanh toán phần select chọn đã thanh toán hoặc chưa thanh toán nhé
             try {
                 Order order = new Gson().fromJson(req.getReader(), Order.class);
                 rs = jsonResult.jsonSuccess(orderDao.updateStatusPayment(order.isStatusPaments(),order.getId()));
@@ -136,7 +107,7 @@ public class OrderController extends HttpServlet {
                 rs = jsonResult.jsonFail("update order fail");
             }
             resp.getWriter().write(rs);
-        }else if(partInfo.indexOf("/update-by-status-order")==0){
+        }else if(partInfo.indexOf("/update-by-status-order")==0){//Cập nhật trạng thái đơn hàng
             try {
                 Order order = new Gson().fromJson(req.getReader(), Order.class);
                 rs = jsonResult.jsonSuccess(orderDao.updateStatusOrder(order.getIdOrderstatus(),order.getId()));

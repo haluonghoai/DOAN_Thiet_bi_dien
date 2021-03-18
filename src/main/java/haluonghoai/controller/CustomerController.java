@@ -30,7 +30,7 @@ public class CustomerController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String partInfo = request.getPathInfo();
         String rs = "";
-        if(partInfo.indexOf("/find-all") == 0) {
+        if(partInfo.indexOf("/find-all") == 0) {//Hiển thị danh sách khách hàng
             try {
                 List<Customer> customerList = customerDao.findAll();
                 rs = jsonResult.jsonSuccess(customerList);
@@ -39,7 +39,7 @@ public class CustomerController extends HttpServlet {
                 rs = jsonResult.jsonFail("find-all-error");
             }
             response.getWriter().write(rs);
-        }else if(partInfo.indexOf("/so-ban-ghi") == 0){
+        }else if(partInfo.indexOf("/so-ban-ghi") == 0){//Hiển thị số bản ghi
             try{
                 int count = customerDao.count();
                 rs = jsonResult.jsonSuccess(count);
@@ -48,7 +48,7 @@ public class CustomerController extends HttpServlet {
                 rs = jsonResult.jsonFail("so-ban-ghi-error");
             }
             response.getWriter().write(rs);
-        }else if(partInfo.indexOf("/seach-customer")==0){
+        }else if(partInfo.indexOf("/seach-customer")==0){// tìm kiếm khách hàng trong trang admin
             try {
                 String name = request.getParameter("name");
                 String phoneNumber = request.getParameter("phoneNumber");

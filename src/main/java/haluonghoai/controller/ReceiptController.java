@@ -48,7 +48,7 @@ public class ReceiptController extends HttpServlet {
                 rs = jsonResult.jsonFail("find-all-error");
             }
             response.getWriter().write(rs);
-        }else if(partInfo.indexOf("/so-ban-ghi") == 0){
+        }else if(partInfo.indexOf("/so-ban-ghi") == 0){//Hiển thị số bản ghi
             try{
                 int count = receiptDao.count();
                 rs = jsonResult.jsonSuccess(count);
@@ -57,7 +57,7 @@ public class ReceiptController extends HttpServlet {
                 rs = jsonResult.jsonFail("so-ban-ghi-error");
             }
             response.getWriter().write(rs);
-        }else if(partInfo.indexOf("/find-by-id")==0){
+        }else if(partInfo.indexOf("/find-by-id")==0){//Tìm kiếm phiếu nhập theo mã phiếu nhập
             try{
                int id = Integer.parseInt(request.getParameter("id"));
                rs = jsonResult.jsonSuccess(id);
