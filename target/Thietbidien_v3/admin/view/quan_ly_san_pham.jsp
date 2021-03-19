@@ -170,18 +170,11 @@
     <div class="tool-page">
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <button id="btn-them" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Thêm danh mục sản phẩm</button>
                 </div>
                 <div class="col-md-2 mt-1 hienthi">
                     Hiển thị bản ghi <input type="text" readonly style="width:30px">
-                </div>
-                <div class="col-md-2 mt-1">
-                    <select class="form-control" id="select-search-sap-xep">
-                        <option>Sắp xếp</option>
-                        <option>A->Z</option>
-                        <option>Z->A</option>
-                    </select>
                 </div>
             </div>
         </div>

@@ -39,8 +39,9 @@
                             <thead>
                             <tr>
                                 <th scope="col">STT</th>
+                                <th scope="col">Mã phiếu nhập</th>
                                 <th scope="col">Người lập phiếu</th>
-                                <th scope="col">Tên nhà cung cấp</th>
+                                <th scope="col">Mã nhà cung cấp</th>
                                 <th scope="col">Thời gian lập</th>
                                 <th scope="col">Ghi chú</th>
                                 <th scope="col">Tình trạng</th>

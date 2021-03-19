@@ -7,62 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <main>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Chi tiết đơn hàng</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body form-custom">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Mã sản phẩm</label>
-                                <input type="text" class="form-control" id="input-ten" placeholder="Nhập mã">
-                                <div class="invalid-feedback">
-                                    Error!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Mã sản phẩm</label>
-                                <input type="text" class="form-control" id="input-ten" placeholder="Nhập mã sản phẩm">
-                                <div class="invalid-feedback">
-                                    Error!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Tên sản phẩm</label>
-                                <input type="text" class="form-control" id="input-ten" placeholder="Nhập tên sản phẩm">
-                                <div class="invalid-feedback">
-                                    Error!
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Số lượng</label>
-                                <input type="text" class="form-control" id="input-ten" placeholder="Nhập số lượng">
-                                <div class="invalid-feedback">
-                                    Error!
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-success" id="btn-luu-lai">Lưu</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="container chi-tiet">
         <div class="row">
             <div class="col-md-12 tieu-de">
@@ -130,11 +74,10 @@
             </div>
         </div>
         <div class="tong-tien text-center">
-            <label for="">Tổng tiền:</label><span>2000000</span>
+            <label>Tổng tiền:</label><span>2000000</span>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Sửa</button>
                 <button type="button" class="btn btn-primary">In hóa đơn</button>
             </div>
         </div>

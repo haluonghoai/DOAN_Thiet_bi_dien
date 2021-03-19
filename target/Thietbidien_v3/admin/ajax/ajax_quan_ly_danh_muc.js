@@ -4,7 +4,7 @@ $(function () {
     inputTen=$("#input-ten");
     checkboxTinhTrang=$("#checkbox-tinh-trang-ban");
     buttonThem=$("#btn-them");
-    spanHienThi=$("#hien-thi")
+    spanHienThi=$("#hien-thi");
     tableDuLieu=$("tbody");
     buttonLuu=$("#btn-luu-lai");
     btnSua=$("#btn-sua");
@@ -19,7 +19,7 @@ $(function () {
 
 function viewDanhSachDanhMuc() {
     $.ajax({
-        url:"http://localhost:8080/Thietbidien_v3_war/api/v1/category/find-all",
+        url:"http://localhost:8080/DOAN_Thiet_bi_dien_war/api/v1/category/find-all",
         method:"get",
         success:function (res1) {
             list = res1.data;
@@ -70,7 +70,7 @@ function xacnhanxoa() {
     buttonXacNhanXoa.click(function () {
         let idCategory = list[indexdanhmuc-0].id;
         $.ajax({
-            url:"http://localhost:8080/Thietbidien_v3_war/api/v1/category?id="+idCategory,
+            url:"http://localhost:8080/DOAN_Thiet_bi_dien_war/api/v1/category?id="+idCategory,
             method:"delete",
             success: function () {
                 list = list.filter((data, index) => {
@@ -116,7 +116,7 @@ function luuDanhMuc() {
                     "status":false
                 }
                 $.ajax({
-                    url:"http://localhost:8080/Thietbidien_v3_war/api/v1/category/*",
+                    url:"http://localhost:8080/DOAN_Thiet_bi_dien_war/api/v1/category/*",
                     method:"Put",
                     data: JSON.stringify(dataPush),
                     success: function () {
@@ -131,7 +131,7 @@ function luuDanhMuc() {
                     "status":false
                 }
                 $.ajax({
-                    url:"http://localhost:8080/Thietbidien_v3_war/api/v1/category/*",
+                    url:"http://localhost:8080/DOAN_Thiet_bi_dien_war/api/v1/category/*",
                     method:"Post",
                     data: JSON.stringify(dataPush),
                     success: function () {
@@ -158,7 +158,7 @@ function themDanhMuc() {
 
 function hienthibanghi() {
     $.ajax({
-        url: "http://localhost:8080/Thietbidien_v3_war/api/v1/category/so-ban-ghi",
+        url: "http://localhost:8080/DOAN_Thiet_bi_dien_war/api/v1/category/so-ban-ghi",
         method: "get",
         success: function (res) {
             let hienthi = res.data;
