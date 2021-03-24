@@ -70,6 +70,7 @@ public class CustomerDao_impl implements CustomerDao {
         return banghi;
     }
 
+
     @Override
     public List<Customer> search(String name, String phoneNumber, String email, String adress) throws SQLException, ClassNotFoundException {
         List<Customer> list = new ArrayList<>();
@@ -79,6 +80,22 @@ public class CustomerDao_impl implements CustomerDao {
         preparedStatement.setString(2,phoneNumber);
         preparedStatement.setString(3,email);
         preparedStatement.setString(4,adress);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.first()){
+            do{
+                Customer customer = getObject(resultSet);
+                if(customer != null) list.add(customer);
+            }while(resultSet.next());
+        }
+        return list;
+    }
+
+    @Override
+    public List<Customer> searchByUsername(String username) throws SQLException, ClassNotFoundException {
+        List<Customer> list = new ArrayList<>();
+        String sql = "select * from tblKhachhang where sTendangnhap = ?";
+        PreparedStatement preparedStatement = myConnection.prepare(sql);
+        preparedStatement.setString(1,username);
         ResultSet resultSet = preparedStatement.executeQuery();
         if(resultSet.first()){
             do{

@@ -48,7 +48,18 @@ public class CustomerController extends HttpServlet {
                 rs = jsonResult.jsonFail("so-ban-ghi-error");
             }
             response.getWriter().write(rs);
-        }else if(partInfo.indexOf("/seach-customer")==0){// tìm kiếm khách hàng trong trang admin
+        } else if (partInfo.indexOf("/search-customer-name") == 0){
+            try {
+                String username = request.getParameter("username");
+                List<Customer> list = customerDao.searchByUsername(username);
+                rs = jsonResult.jsonSuccess(list);
+
+            }catch (Exception ex){
+                ex.printStackTrace();
+                rs = jsonResult.jsonFail("seach-customer-name-fail");
+            }
+            response.getWriter().write(rs);
+        } else if(partInfo.indexOf("/search-customer")==0){// tìm kiếm khách hàng trong trang admin
             try {
                 String name = request.getParameter("name");
                 String phoneNumber = request.getParameter("phoneNumber");
